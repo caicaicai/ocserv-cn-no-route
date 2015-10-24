@@ -8,7 +8,7 @@
 curl 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | grep ipv4 | grep CN | awk -F\| '{ printf("%s/%d\n", $4, 32-log($5)/log(2)) }' > chnroute.txt
 ```
 
-2、合并chnroute.txt(335865856 IPs)，生成chnroute_merged.txt(335865856 IPs)
+2、合并chnroute.txt(335888384 IPs)，生成chnroute_merged.txt(335888384 IPs)
 
 3、将所有/12及以上改成/11，并合并，生成11_143.txt(717225984 IPs)
 

@@ -8,26 +8,37 @@
 curl 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | grep ipv4 | grep CN | awk -F\| '{ printf("%s/%d\n", $4, 32-log($5)/log(2)) }' > chnroute.txt
 ```
 
-2、合并chnroute.txt(334490624 IPs)，生成chnroute_merged.txt(334490624 IPs)
+2、合并chnroute.txt(335865856 IPs)，生成chnroute_merged.txt(335865856 IPs)
 
-3、将所有/12及以上改成/11，并合并，生成11_143.txt(713031680 IPs)
+3、将所有/12及以上改成/11，并合并，生成11_143.txt(717225984 IPs)
 
-4、生成不含保留IP的cn-no-route.txt(712965888 IPs)
+4、生成不含保留IP的cn-no-route.txt(717160192 IPs)
 
 剔除11_143.txt中保留IP：192.168.0.0/16、203.0.113.0/24
 
-5、添加保留IP并合并，生成cn-no-route2.txt(1305674752 IPs)
+5、添加保留IP并合并，生成cn-no-route2.txt(1309869056 IPs)
 
 
 ## 注意事項
 
-ocserv需要修改src/vpn.h来支持超过96行(ocserv默认值)但不超过200行(Cisco AnyConnect最大值)的路由表:
+1、ocserv需要修改src/vpn.h来支持超过96行(ocserv默认值)但不超过200行(Cisco AnyConnect最大值)的路由表:
 
+* 0.10.8 及之前版本
 ```
-#define MAX_CONFIG_ENTRIES 96 
+#define MAX_CONFIG_ENTRIES 96
+```
+* 0.10.9 及之后版本
+```
+#define DEFAULT_CONFIG_ENTRIES 96
 ```
 
 96改为200以上
+
+2、根据[Cisco官方文档](http://www.cisco.com/c/en/us/products/collateral/security/ios-sslvpn/prod_white_paper0900aecd80512071.html)，no-route和route不能同时使用。
+
+```
+You can specify either split-include or split-exclude, but you cannot specify both options.
+```
 
 ## Q&A
 

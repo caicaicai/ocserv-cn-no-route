@@ -23,11 +23,11 @@ curl 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | grep ipv4
 
 1、ocserv需要修改src/vpn.h来支持超过96行(ocserv默认值)但不超过200行(Cisco AnyConnect最大值)的路由表:
 
-* 0.10.8 及之前版本
+* 0.10.5 及之前版本
 ```
 #define MAX_CONFIG_ENTRIES 96
 ```
-* 0.10.9 及之后版本
+* 0.10.6 及之后版本
 ```
 #define DEFAULT_CONFIG_ENTRIES 96
 ```

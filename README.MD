@@ -5,10 +5,16 @@
 1、生成最新国内IP列表chnroute.txt
 
 ```
-curl 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | grep ipv4 | grep CN | awk -F\| '{ printf("%s/%d\n", $4, 32-log($5)/log(2)) }' > chnroute.txt
+wget -N http://ftp.afrinic.net/pub/stats/afrinic/delegated-afrinic-extended-latest
+wget -N http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-extended-latest
+wget -N http://ftp.arin.net/pub/stats/arin/delegated-arin-extended-latest
+wget -N http://ftp.lacnic.net/pub/stats/lacnic/delegated-lacnic-extended-latest
+wget -N http://ftp.ripe.net/pub/stats/ripencc/delegated-ripencc-extended-latest
+cat delegated-afrinic-extended-latest delegated-apnic-extended-latest delegated-arin-extended-latest delegated-lacnic-extended-latest delegated-ripencc-extended-latest>>delegated-all-latest
+cat delegated-all-latest | grep ipv4 | grep CN | awk -F\| '{ printf("%s/%d\n", $4, 32-log($5)/log(2)) }' >chnroute.txt
 ```
 
-2、合并chnroute.txt(335888384 IPs)，生成chnroute_merged.txt(335888384 IPs)
+2、合并chnroute.txt(336103680 IPs)，生成chnroute_merged.txt(336103680 IPs)
 
 3、将所有/12及以上改成/11，并合并，生成11_143.txt(717225984 IPs)
 
